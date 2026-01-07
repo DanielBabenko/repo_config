@@ -29,6 +29,13 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
+  kafka:
+    bootstrap-servers: kafka1:9092,kafka2:9092,kafka3:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serialization.JsonSerializer
+      properties:
+        spring.json.trusted.packages: "com.example.productservice.dto.event"
 
 eureka:
   client:
