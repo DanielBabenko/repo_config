@@ -23,9 +23,15 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        retries: 3
+        acks: all
+        delivery.timeout.ms: 30000
     consumer:
       group-id: product-service-group
       auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
