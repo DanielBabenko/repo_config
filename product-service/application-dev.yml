@@ -18,6 +18,14 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: false
+  kafka:
+    bootstrap-servers: kafka1:9092, kafka2:9094, kafka3:9096
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: product-service-group
+      auto-offset-reset: earliest
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
@@ -29,14 +37,6 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
-  kafka:
-    bootstrap-servers: kafka1:9092, kafka2:9094, kafka3:9096
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: product-service-group
-      auto-offset-reset: earliest
 
 eureka:
   client:
