@@ -27,6 +27,7 @@ spring:
         retries: 3
         acks: all
         delivery.timeout.ms: 30000
+        allow.auto.create.topics: true
     consumer:
       group-id: product-service-group
       auto-offset-reset: earliest
