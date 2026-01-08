@@ -31,7 +31,7 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
   kafka:
-    bootstrap-servers: kafka1:9092, kafka2:9092, kafka3:9092
+    bootstrap-servers: localhost:9092, localhost:9094, localhost:9096
     consumer:
       group-id: application-service-group
       auto-offset-reset: earliest
