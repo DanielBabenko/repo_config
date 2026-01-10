@@ -23,6 +23,16 @@ spring:
     user: ${USER_DB_USER:postgres}
     password: ${USER_DB_PASS:postgres}
     locations: classpath:db/migration
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: all
+        retries: 3
+        enable.idempotence: true
+    consumer:
+      group-id: user-service-group
 
 eureka:
   client:
