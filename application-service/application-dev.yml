@@ -30,13 +30,6 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: application-service-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   main:
     allow-bean-definition-overriding: true
 
