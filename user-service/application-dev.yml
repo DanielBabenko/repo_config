@@ -24,15 +24,18 @@ spring:
     password: ${USER_DB_PASS:postgres}
     locations: classpath:db/migration
   kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka1:9092,kafka2:9093,kafka3:9094}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      properties:
-        acks: all
-        retries: 3
-        enable.idempotence: true
-    consumer:
-      group-id: user-service-group
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 10
+      enable-idempotence: true
+      delivery-timeout-ms: 120000
+      request-timeout-ms: 30000
+      max-block-ms: 60000
+    topics:
+      user-deleted: user.deleted
 
 eureka:
   client:
