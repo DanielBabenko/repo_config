@@ -32,7 +32,10 @@ spring:
       group-id: application-service-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserial
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        max.poll.records: 10
+        enable.auto.commit: false
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
