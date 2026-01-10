@@ -24,7 +24,7 @@ spring:
     password: ${USER_DB_PASS:postgres}
     locations: classpath:db/migration
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka1:9092,kafka2:9093,kafka3:9094}
+    bootstrap-servers: kafka1:9092,kafka2:9092,kafka3:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
