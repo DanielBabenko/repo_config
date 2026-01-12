@@ -29,6 +29,15 @@ spring:
       minimum-idle: 5
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka1:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 10
+      enable-idempotence: true
+      delivery-timeout-ms: 120000
+      request-timeout-ms: 30000
+      max-block-ms: 60000
     consumer:
       group-id: application-service-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -44,6 +53,8 @@ spring:
     topics:
       user-deleted: user.deleted
       product-deleted: product.deleted
+      tag-create-request: tag.create.request
+      tag-attach-request: tag.attach.request
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
