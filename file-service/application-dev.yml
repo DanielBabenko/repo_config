@@ -38,7 +38,7 @@ spring:
       request-timeout-ms: 30000
       max-block-ms: 60000
     consumer:
-      group-id: application-service-group
+      group-id: file-service-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: earliest
