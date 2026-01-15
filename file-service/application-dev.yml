@@ -53,6 +53,8 @@ spring:
     topics:
       file-attach-request: file.attach.request
       file-detach-request: file.detach.request
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:
