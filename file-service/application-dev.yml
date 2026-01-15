@@ -117,5 +117,3 @@ kafka:
   topics:
     file-attach-request: file.attach.request
     file-detach-request: file.detach.request
-    tag-create-request: tag.create.request
-    tag-attach-request: tag.attach.request
