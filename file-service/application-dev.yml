@@ -49,6 +49,9 @@ spring:
         enable.auto.commit: false
     listener:
       ack-mode: manual_immediate
+    topics:
+      file-attach-request: file.attach.request
+      file-detach-request: file.detach.request
 
 eureka:
   client:
