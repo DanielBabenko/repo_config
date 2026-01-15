@@ -1,0 +1,118 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: application-service
+  cloud:
+    discovery:
+      enabled: true
+    openfeign:
+      circuitbreaker:
+        enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  datasource:
+    url: ${APPLICATION_DB_URL:jdbc:postgresql://localhost:5432/applicationdb}
+    username: ${APPLICATION_DB_USER:postgres}
+    password: ${APPLICATION_DB_PASS:postgres}
+    hikari:
+      maximum-pool-size: 10
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka1:9092,kafka2:9092,kafka3:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 10
+      enable-idempotence: true
+      delivery-timeout-ms: 120000
+      request-timeout-ms: 30000
+      max-block-ms: 60000
+    consumer:
+      group-id: application-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      properties:
+        session.timeout.ms: 45000
+        max.poll.interval.ms: 300000
+        enable.auto.commit: false
+    listener:
+      ack-mode: manual_immediate
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30s
+        permittedNumberOfCallsInHalfOpenState: 3
+    instances:
+      user-service:
+        baseConfig: default
+      product-service:
+        baseConfig: default
+      file-service:
+        baseConfig: default
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 5s
+    instances:
+      user-service:
+        baseConfig: default
+      product-service:
+        baseConfig: default
+      file-service:
+        baseConfig: default
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: false
+
+logging:
+  level:
+    com.example: DEBUG
+    org.springframework.cloud: INFO
+
+jwt:
+  secret: ${JWT_SECRET:3c04092ee33e6d63aeded3617cd159e3742ecb417c364106cc75efa2c18dd2eb5bf70af5}
+  expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+
+kafka:
+  topics:
+    file-attach-request: file.attach.request
+    file-detach-request: file.detach.request
+    tag-create-request: tag.create.request
+    tag-attach-request: tag.attach.request
