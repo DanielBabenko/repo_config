@@ -112,8 +112,3 @@ logging:
 jwt:
   secret: ${JWT_SECRET:3c04092ee33e6d63aeded3617cd159e3742ecb417c364106cc75efa2c18dd2eb5bf70af5}
   expiration-ms: ${JWT_EXPIRATION_MS:3600000}
-
-kafka:
-  topics:
-    file-attach-request: file.attach.request
-    file-detach-request: file.detach.request
