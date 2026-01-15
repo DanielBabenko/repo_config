@@ -22,9 +22,9 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
   datasource:
-    url: ${APPLICATION_DB_URL:jdbc:postgresql://localhost:5438/applicationdb}
-    username: ${APPLICATION_DB_USER:postgres}
-    password: ${APPLICATION_DB_PASS:postgres}
+    url: ${FILE_DB_URL:jdbc:postgresql://localhost:5438/filedb}
+    username: ${FILE_DB_USER:postgres}
+    password: ${FILE_DB_PASS:postgres}
     hikari:
       maximum-pool-size: 10
   kafka:
