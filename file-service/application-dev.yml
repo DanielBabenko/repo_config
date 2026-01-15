@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: application-service
+    name: file-service
   cloud:
     discovery:
       enabled: true
